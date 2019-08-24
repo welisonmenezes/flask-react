@@ -25,6 +25,16 @@ class Navigation extends Component {
                                 <span className="nav-link">NotFound</span>
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/admin">
+                                <span className="nav-link">Admin</span>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/login">
+                                <span className="nav-link">Login</span>
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </nav>
