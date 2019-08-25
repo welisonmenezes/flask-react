@@ -1,0 +1,10 @@
+.ql-audio img{
+    vertical-align: top;
+}
+.ql-editor{
+    min-height: 250px;
+}
+.ql-editor img{
+    max-width: 50%;
+    max-height: 150px;
+}
