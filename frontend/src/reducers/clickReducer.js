@@ -29,6 +29,8 @@ export const clickReducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload
             };
+            //state.data.push({id:Math.floor(Math.random() * 10),employee_name: 'welison'})
+            //return state;
         case GET_DATA_ERROR:
             return {
                 ...state,
