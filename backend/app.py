@@ -3,10 +3,11 @@ from api import api
 
 def create_app():
     app = Flask(__name__, template_folder='frontend', static_folder='frontend/static')
-
+    
     # apply app configurations
     app.config.from_pyfile('config.py')
-    print(app.config)
+    #print(app.config)
+
 
     # routes all nonexistent route to /
     @app.route('/', defaults={'path': ''})

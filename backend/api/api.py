@@ -1,5 +1,6 @@
 from flask import current_app, Blueprint, request
 from flask_restful import Resource, Api
+import jwt
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 api = Api(api_bp)
@@ -23,10 +24,28 @@ def hasPermission(role):
         return decorated                                          
     return decorator
 
+def hasPermissionByToken(token):                            
+    def decorator(fn):                                            
+        def decorated(*args,**kwargs): 
+            if (token):
+                try:
+                    decoded = jwt.decode(token, 'welisonmenezes', algorithms=['HS256'])
+                    return decoded, 200
+                except:
+                    return {'message': 'token inválido'}, 403
+        return decorated                                          
+    return decorator
+
+encoded_jwt = jwt.encode({'user': 'welison', 'permission': 'admin'}, 'welisonmenezes', algorithm='HS256')
+print(encoded_jwt)
+
+
+
 class TodoItem(Resource):
-    @hasPermission('user')
+    #@hasPermission('user')
+    @hasPermissionByToken(encoded_jwt)
     def get(self):
-        print('xxx')
+        
         return {'task': 'get'}
 
     def post(self):
