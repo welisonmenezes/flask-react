@@ -18,7 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "buildtoflask": "react-scripts build && rm -rf frontend/ && ren build frontend && rm -rf ../backend/frontend/ && mv frontend ../backend",
+    "buildtoflask_old": "react-scripts build && rm -rf frontend/ && ren build frontend && rm -rf ../backend/frontend/ && mv frontend ../backend",
+    "buildtoflask": "react-scripts build && xcopy /E /Y build ..\\backend\\frontend",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
