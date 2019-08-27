@@ -5,3 +5,4 @@ venv/**/*
 /frontend/node_modules
 /frontend/build
 /frontend/frontend
+/frontend/package-lock.json

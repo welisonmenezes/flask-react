@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import RichEditor from '../shared/RichEditor/RichEditor';
 
@@ -17,8 +18,11 @@ class Admin extends Component {
   }
 
   render() {
+    const { newValue } = this.props;
     return (
       <div className='Admin'>
+        O state é: { newValue }
+        <hr />
         <RichEditor></RichEditor>
         <hr />
         <h2>Exemplo convert image to base64</h2>
@@ -33,4 +37,7 @@ class Admin extends Component {
 }
 
 
-export default Admin;
+const mapStateToProps = store => ({
+  newValue: store.clickState.newValue
+});
+export default connect(mapStateToProps)(Admin);

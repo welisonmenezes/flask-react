@@ -11,7 +11,10 @@
     "react-scripts": "0.9.5",
     "reactstrap": "^8.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
