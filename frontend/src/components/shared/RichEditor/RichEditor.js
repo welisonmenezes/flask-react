@@ -4,6 +4,31 @@ import 'react-quill/dist/quill.snow.css';
 import AudioIcon from '../../../images/speaker.svg';
 import './RichEditor.css';
 
+
+var Embed = ReactQuill.Quill.import('blots/block/embed');
+class Hr extends Embed {
+
+  static create(value) {
+    console.log(value)
+      let node = super.create(value);
+      console.log(node);
+      node.setAttribute('src', 'https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/03/o-que-e-html.png');
+      //node.style.float = 'right';
+      return node;
+  }
+
+  static value(node) {
+    return {
+      url: node.getAttribute('src')
+    };
+  }
+}
+Hr.blotName = 'hr';
+Hr.tagName = 'img';
+ReactQuill.Quill.register({
+  'formats/hr': Hr
+});
+
 class RichEditor extends Component {
 
   /* eslint-disable */
@@ -16,6 +41,7 @@ class RichEditor extends Component {
     this.state = { text: '' };
     this.handleChange = this.handleChange.bind(this);
     self = this;
+
   }
 
   componentDidMount() {
@@ -36,9 +62,11 @@ class RichEditor extends Component {
     'container': '#toolbar',
     'handlers':{
       'audio': function(value) {
-        console.log(value)
+        
         if (value) {
-          self.insertImageIntoEditor(this.quill);
+          const el = document.getElementById('ImageEditor');
+          el.classList.add('opened');
+          //self.insertImageIntoEditor(this.quill);
         } else {
           this.quill.format('video', false);
         }
@@ -52,17 +80,37 @@ class RichEditor extends Component {
 
   insertImageIntoEditor(editor) {
     editor.focus();
+    var range = editor.getSelection();
+    if (range) {      
+      editor.insertEmbed(range.index,"hr","null");
+    } else {
+      editor.insertEmbed(range.index, false);
+    }
+
+    const el = document.getElementById('ImageEditor');
+    el.classList.remove('opened');
+    /*
+    editor.focus();
     const img = '<img src="https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2018/03/o-que-e-html.png" alt="test" style="width:200;float: none;" />';
     const replaced = '##$$image$$##';
     const index = editor.getSelection().index;
     editor.insertText(index, replaced);
     let content = editor.root.innerHTML;
     content = content.replace(replaced, img);
+    console.log(editor)
     //setTimeout(() => {
       //editor.root.innerHTML = content;
       editor.clipboard.dangerouslyPasteHTML(content);
       //this.setState({text: content})
     //}, 1);
+    */
+
+    /*
+    editor.setContents([
+      { insert: content, attributes: {} }
+    ]);
+    console.log(this.state.text);
+    */
   }
 
   addImage() {
@@ -140,8 +188,9 @@ class RichEditor extends Component {
             ref={(el) => { this.reactQuillRef = el }}
             value={this.state.text}
             modules={{toolbar: this.toolbarConfig }}
+            //formats={['formats/hr', 'hr']}
             onChange={this.handleChange} />
-          <div>
+          <div id="ImageEditor">
             <button onClick={() => {this.addImage()}}>Add image</button>
           </div>
       </div>
